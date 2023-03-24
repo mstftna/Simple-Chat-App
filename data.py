@@ -1,22 +1,12 @@
+import json
 database = {}
+if __name__ == '__main__':
+    print(dir(json))
 
-with open("database.txt", "r") as file:
-    icerik = file.readlines()
-    
-
-for i in range(len(icerik)): #\n kaldırma
-    if "\n" in icerik[i]:
-        index = icerik[i].find("\n")
-        icerik[i] = icerik[i][0:index]
-
-for i in icerik: #sözlüğü değiştirme
-    j = i.split(" : ")
-    database.update({j[0]:j[1]})
+elif __name__ != '__main__':
+    with open("database.json", "r") as file:
+        database = json.loads(file.read())
 
 def ekle():
-    with open("database.txt", "w") as file:
-        file.write("")
-    with open("database.txt", "a") as file:
-        for key in database.keys():
-            value = database[key]
-            file.write(key + " : " + value)
+    with open ("database.json", "w", encoding="utf8") as file:
+        file.write(json.dumps(database, indent=4, sort_keys=True, ensure_ascii=False))
